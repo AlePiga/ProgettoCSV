@@ -156,28 +156,28 @@ const customers = ref([
     email: "kohihu@neezaona.lt",
     company: "Alpha corp.",
     template: "T-001",
-    lastAccess: "15/06/2023",
+    lastAccess: "18/06/2025 12:20:21",
   },
   {
     name: "Ryan Hale",
     email: "baskawij@wig.ck",
     company: "Beta corp.",
     template: "T-005",
-    lastAccess: "10/06/2023",
+    lastAccess: "12/11/2025 17:51:30",
   },
   {
     name: "Earl Garrett",
     email: "am@esimofvu.cl",
     company: "Gamma corp.",
     template: "T-003",
-    lastAccess: "05/06/2023",
+    lastAccess: "25/05/2025 10:52:02",
   },
   {
     name: "Eula Rivera",
     email: "paoj@foromu.mp",
     company: "Kappa corp.",
     template: "T-002",
-    lastAccess: "01/06/2023",
+    lastAccess: "09/12/2025 08:03:28",
   },
 ]);
 
