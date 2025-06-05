@@ -97,11 +97,11 @@
         class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
       >
         <div class="bg-white rounded-2xl shadow-xl p-6 w-full max-w-md">
-          <h3 class="text-2xl font-bold mb-4">Aggiungi Nuovo Cliente</h3>
+          <h3 class="text-2xl font-bold mb-4">Aggiungi nuovo cliente</h3>
 
           <div class="space-y-4">
             <div>
-              <label class="block text-gray-700 mb-1">Nome e Cognome</label>
+              <label class="block text-gray-700 mb-1">Nome e cognome</label>
               <input
                 v-model="newCustomer.name"
                 type="text"
