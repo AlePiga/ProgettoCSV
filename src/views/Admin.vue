@@ -89,13 +89,17 @@
 								:class="{
 									'font-medium text-gray-900': colIndex === 0,
 									'text-gray-600': colIndex === 1 && header.length > 1,
-									'text-gray-500 text-center': colIndex > 1 || header.length === 1,
+									'text-gray-500 text-center':
+										colIndex > 1 || header.length === 1,
 									'text-center': colIndex > 1 || header.length === 1,
 								}"
 							>
 								<!-- Badge blu se solo numero -->
 								<span
-									v-if="typeof customer[col] === 'string' && customer[col].trim().match(/^\d+$/)"
+									v-if="
+										typeof customer[col] === 'string' &&
+										customer[col].trim().match(/^\d+$/)
+									"
 									class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm whitespace-nowrap"
 								>
 									{{ customer[col] }}
@@ -144,32 +148,16 @@
 			>
 				<div class="bg-white rounded-2xl shadow-xl p-6 w-full max-w-md">
 					<div class="space-y-4">
-						<div>
-							<label class="block text-gray-700 mb-1">Nome e cognome</label>
+						<!-- Form dinamico in base all'header -->
+						<div v-for="(col, idx) in header" :key="idx">
+							<label class="block text-gray-700 mb-1">{{ col }}</label>
 							<input
-								v-model="newCustomer.name"
-								type="text"
-								class="w-full px-4 py-2 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
-							/>
-						</div>
-						<div>
-							<label class="block text-gray-700 mb-1">Email</label>
-							<input
-								v-model="newCustomer.email"
-								type="email"
-								class="w-full px-4 py-2 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
-							/>
-						</div>
-						<div>
-							<label class="block text-gray-700 mb-1">Azienda</label>
-							<input
-								v-model="newCustomer.company"
+								v-model="newCustomer[col]"
 								type="text"
 								class="w-full px-4 py-2 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
 							/>
 						</div>
 					</div>
-
 					<div class="flex justify-end mt-6 space-x-3">
 						<button
 							@click="showModal = false"
@@ -229,30 +217,20 @@ const showModal = ref(false);
 const showConfirmDelete = ref(false);
 const customerToDelete = ref(null);
 
-// Inizializza il nuovo cliente con valori predefiniti
-const newCustomer = ref({
-	name: "",
-	email: "",
-	company: "",
-	template: "0",
-	lastAccess: new Date().toLocaleDateString(),
-});
-
-// Funzione per aggiungere un nuovo cliente
+// Inizializza il nuovo cliente con chiavi dinamiche
+const newCustomer = ref({});
 const addNewCustomer = () => {
-	newCustomer.value = {
-		name: "",
-		email: "",
-		company: "",
-		template: "0",
-		lastAccess: new Date().toLocaleDateString(),
-	};
+	newCustomer.value = {};
+	header.value.forEach((col) => {
+		newCustomer.value[col] = "";
+	});
 	showModal.value = true;
 };
 
-// Se sono presenti nome e email, il cliente viene aggiunto alla lista
+// Aggiungi il nuovo cliente con chiavi dinamiche
 const confirmAddCustomer = () => {
-	if (newCustomer.value.name && newCustomer.value.email) {
+	// Almeno un campo deve essere compilato
+	if (Object.values(newCustomer.value).some((v) => v && v.trim() !== "")) {
 		customers.value.unshift({ ...newCustomer.value });
 		showModal.value = false;
 	}
@@ -288,11 +266,10 @@ watch(
 	{ deep: true }
 );
 
-// Funzione per esportare i dati in CSV
+// Funzione per esportare i dati in CSV dinamico
 function exportCSV() {
-	const header = ["Nome e cognome", "Email", "Azienda", "Template", "Ultimo accesso"];
-	const rows = customers.value.map((c) => [c.name, c.email, c.company, c.template, c.lastAccess]);
-	const csvContent = [header, ...rows]
+	const rows = customers.value.map((row) => header.value.map((col) => row[col] ?? ""));
+	const csvContent = [header.value, ...rows]
 		.map((e) => e.map((v) => `"${String(v).replace(/"/g, '""')}"`).join(","))
 		.join("\r\n");
 
