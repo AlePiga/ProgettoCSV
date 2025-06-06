@@ -1,8 +1,6 @@
 <template>
 	<div class="min-h-screen bg-gray-100 flex items-center justify-center p-6 select-none">
 		<div class="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
-			<h2 class="text-3xl font-bold text-center mb-3">Login</h2>
-
 			<form @submit.prevent="handleLogin">
 				<!-- Input email -->
 				<div class="mb-4">
@@ -23,7 +21,7 @@
 						type="password"
 						v-model="password"
 						class="w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 transition"
-						placeholder="•••••••••••••••••"
+						placeholder="••••••••••••"
 						required
 					/>
 				</div>
@@ -39,11 +37,11 @@
 				</button>
 			</form>
 
-			<!-- TODO: Implementare link di registrazione -->
+			<!-- 			TODO: Implementare link di registrazione
 			<p class="text-center text-gray-500 mt-6 text-sm">
 				Non hai un account?
 				<a href="#" class="text-blue-500 hover:underline font-medium">Registrati</a>
-			</p>
+			</p> -->
 		</div>
 	</div>
 </template>
@@ -63,6 +61,6 @@ const handleLogin = () => {
 
 	console.log("Email:", email.value);
 	console.log("Password:", password.value);
-	router.push("/dashboard");
+	router.push("/upload");
 };
 </script>

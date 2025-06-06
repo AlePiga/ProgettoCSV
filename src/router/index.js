@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Login from "@/views/Login.vue";
-import Dashboard from "@/views/Dashboard.vue";
-// import Tabella from "../views/GestioneClienti.vue";
-import GestioneClienti from "../views/GestioneClienti.vue";
+import Upload from "@/views/Upload.vue";
+import PannelloAdmin from "../views/Admin.vue";
+import Anteprima from "../views/Anteprima.vue";
 
 const routes = [
 	// Pagine del sito gestite dal router
@@ -12,14 +12,19 @@ const routes = [
 		component: Login,
 	},
 	{
-		path: "/dashboard",
-		name: "Dashboard",
-		component: Dashboard,
+		path: "/upload",
+		name: "Upload",
+		component: Upload,
 	},
 	{
-		path: "/gestione-clienti",
-		name: "GestioneClienti",
-		component: GestioneClienti,
+		path: "/admin",
+		name: "Admin",
+		component: PannelloAdmin,
+	},
+	{
+		path: "/anteprima",
+		name: "Anteprima",
+		component: Anteprima,
 	},
 ];
 
